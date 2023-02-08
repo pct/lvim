@@ -7,6 +7,7 @@
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = false
+vim.foldmethod = 'syntax'
 
 -- general
 lvim.log.level = "info"
@@ -110,6 +111,34 @@ lvim.builtin.treesitter.auto_install = true
 
 lvim.plugins = {
   {
+    "SirVer/ultisnips"
+  },
+
+  {
+    "honza/vim-snippets"
+  },
+
+  {
+    "pangloss/vim-javascript"
+  },
+
+  {
+    "vim-ruby/vim-ruby"
+  },
+
+  {
+    "ervandew/supertab"
+  },
+
+  {
+    "sheerun/vim-polyglot"
+  },
+
+  {
+    "scrooloose/syntastic"
+  },
+
+  {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
@@ -122,11 +151,6 @@ lvim.plugins = {
       vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
       vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
     end,
-  },
-
-  {
-    "ggandor/lightspeed.nvim",
-    event = "BufRead",
   },
 
   {
@@ -176,16 +200,6 @@ lvim.plugins = {
   },
 
   {
-    "kevinhwang91/rnvimr",
-    cmd = "RnvimrToggle",
-    config = function()
-      vim.g.rnvimr_draw_border = 1
-      vim.g.rnvimr_pick_enable = 1
-      vim.g.rnvimr_bw_enable = 1
-    end,
-  },
-
-  {
     "andymass/vim-matchup",
     event = "CursorMoved",
     config = function()
@@ -199,44 +213,10 @@ lvim.plugins = {
   },
 
   {
-    "f-person/git-blame.nvim",
-    event = "BufRead",
-    config = function()
-      vim.cmd "highlight default link gitblame SpecialComment"
-      vim.g.gitblame_enabled = 0
-    end,
-  },
-
-  {
-    "ruifm/gitlinker.nvim",
-    event = "BufRead",
-    config = function()
-      require("gitlinker").setup {
-        opts = {
-          -- remote = 'github', -- force the use of a specific remote
-          -- adds current line nr in the url for normal mode
-          add_current_line_on_normal_mode = true,
-          -- callback for what to do with the url
-          action_callback = require("gitlinker.actions").open_in_browser,
-          -- print the url after performing the action
-          print_url = false,
-          -- mapping to call url generation
-          mappings = "<leader>gy",
-        },
-      }
-    end,
-    requires = "nvim-lua/plenary.nvim",
-  },
-
-  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup()
     end,
-  },
-
-  {
-    "rktjmp/lush.nvim",
   },
 
   {
@@ -267,78 +247,6 @@ lvim.plugins = {
     config = function()
       require("lsp-rooter").setup()
     end,
-  },
-
-  {
-    "folke/persistence.nvim",
-    event = "BufReadPre", -- this will only start session saving when an actual file was opened
-    module = "persistence",
-    config = function()
-      require("persistence").setup {
-        dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
-        options = { "buffers", "curdir", "tabpages", "winsize" },
-      }
-    end,
-  },
-
-  {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = function()
-      require("todo-comments").setup()
-    end,
-  },
-
-  {
-    "itchyny/vim-cursorword",
-    event = { "BufEnter", "BufNewFile" },
-    config = function()
-      vim.api.nvim_command("augroup user_plugin_cursorword")
-      vim.api.nvim_command("autocmd!")
-      vim.api.nvim_command("autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0")
-      vim.api.nvim_command("autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif")
-      vim.api.nvim_command("autocmd InsertEnter * let b:cursorword = 0")
-      vim.api.nvim_command("autocmd InsertLeave * let b:cursorword = 1")
-      vim.api.nvim_command("augroup END")
-    end
-  },
-
-  { "tpope/vim-repeat" },
-
-  {
-    "tpope/vim-surround",
-
-    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
-    -- setup = function()
-    --  vim.o.timeoutlen = 500
-    -- end
-  },
-
-  {
-    "tpope/vim-bundler",
-    cmd = { "Bundler", "Bopen", "Bsplit", "Btabedit" }
-  },
-
-  {
-    "tpope/vim-rails",
-    cmd = {
-      "Eview",
-      "Econtroller",
-      "Emodel",
-      "Smodel",
-      "Sview",
-      "Scontroller",
-      "Vmodel",
-      "Vview",
-      "Vcontroller",
-      "Tmodel",
-      "Tview",
-      "Tcontroller",
-      "Rails",
-      "Generate",
-      "Runner",
-      "Extract"
-    }
   },
 
 }
