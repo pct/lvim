@@ -7,6 +7,18 @@
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = false
+
+-- 紀錄上次打開位置
+vim.cmd [[
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+]]
+
+-- 備份
+vim.opt.backup = true
+
+-- 換行
+vim.opt.wrap = true
+
 vim.foldmethod = 'syntax'
 
 -- general
@@ -34,7 +46,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- -- Change theme settings
 -- lvim.colorscheme = "lunar"
 
--- After changing plugin config exit and reopen LunarVim, Run :PackerSync
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
@@ -45,6 +56,9 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.treesitter.auto_install = true
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
+
+-- -- always installed on startup, useful for parsers without a strict filetype
+-- lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
 
@@ -128,19 +142,6 @@ lvim.plugins = {
 
   {
     "ervandew/supertab"
-  },
-
-  {
-    "sheerun/vim-polyglot"
-  },
-
-  {
-    "scrooloose/syntastic"
-  },
-
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
   },
 
   {
